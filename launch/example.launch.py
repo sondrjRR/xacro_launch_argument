@@ -8,10 +8,16 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
+    # What we try to do #######################################################################
     launch_arg_name_space = actions.DeclareLaunchArgument('name_space', default_value=''),
 
     # name_space = ''  # Variable we would like to adjust as a an argument for the launch file:
     name_space = launch_arg_name_space
+    print(f"Name space: {name_space}")
+    # I.e ros2 launch xacro_launch_argument example.launch.py --ros-args name_space:='new_namespace'
+    
+    # End of what we try to do? ################################################################
+    
     # I.e ros2 launch xacro_launch_argument example.launch.py --namespace 'new_namespace'
     package_name = 'xacro_launch_argument'
     package_path = os.path.join(get_package_share_directory(package_name))
