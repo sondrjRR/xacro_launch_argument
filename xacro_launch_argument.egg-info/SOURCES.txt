@@ -1,0 +1,15 @@
+package.xml
+setup.cfg
+setup.py
+resource/xacro_launch_argument
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py
+xacro_launch_argument/__init__.py
+xacro_launch_argument.egg-info/PKG-INFO
+xacro_launch_argument.egg-info/SOURCES.txt
+xacro_launch_argument.egg-info/dependency_links.txt
+xacro_launch_argument.egg-info/entry_points.txt
+xacro_launch_argument.egg-info/requires.txt
+xacro_launch_argument.egg-info/top_level.txt
+xacro_launch_argument.egg-info/zip-safe
