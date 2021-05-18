@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<robot name="example" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!--  Argument from launch file  -->
+    <xacro:arg name="ns_namespace" default=""/>
+
+
+    <xacro:property name="name_space_pass" value="$(arg ns_namespace)"/>
+    <xacro:if value="${name_space_pass != ''}">
+        <xacro:property name="ns_namespace_" value="$(arg ns_namespace)_"/>
+    </xacro:if>
+    <xacro:if value="${name_space_pass == ''}">
+        <xacro:property name="ns_namespace_" value=""/>
+    </xacro:if>
+
+
+    <link name="${ns_namespace_}odom">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </link>
+
+    <joint name="${ns_namespace_}ref_link" type="fixed">
+        <parent link="${ns_namespace_}odom"/>
+        <child link="${ns_namespace_}chassis"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Chassis Link -->
+    <link name="${ns_namespace_}chassis">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="2 2 3" />
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="2 2 3" />
+            </geometry>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="10"/>
+            <inertia
+                ixx="16.7" ixy="0.0" ixz="0.0"
+                iyy="16.7" iyz="0.0"
+                izz="16.7"/>
+        </inertial>
+    </link>
+
+
+</robot>
