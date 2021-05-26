@@ -2,18 +2,8 @@
 
 <robot name="example" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!--  Argument from launch file  -->
-    <xacro:arg name="ns_namespace" default=""/>
-
-
-    <xacro:property name="name_space_pass" value="$(arg ns_namespace)"/>
-    <xacro:if value="${name_space_pass != ''}">
-        <xacro:property name="ns_namespace_" value="$(arg ns_namespace)_"/>
-    </xacro:if>
-    <xacro:if value="${name_space_pass == ''}">
-        <xacro:property name="ns_namespace_" value=""/>
-    </xacro:if>
-
+    <xacro:include filename="$(find xacro_launch_argument)/urdf/param.urdf.xacro" />
+    <xacro:include filename="$(find xacro_launch_argument)/urdf/sensor.urdf.xacro" />
 
     <link name="${ns_namespace_}odom">
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -51,5 +41,38 @@
         </inertial>
     </link>
 
+        <link name="${ns_namespace_}arm">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.5 3" />
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.5 3" />
+            </geometry>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="10"/>
+            <inertia
+                ixx="16.7" ixy="0.0" ixz="0.0"
+                iyy="16.7" iyz="0.0"
+                izz="16.7"/>
+        </inertial>
+    </link>
+
+    <joint name="my_joint" type="revolute">
+    <origin xyz="0 0 2" rpy="0 0 0"/>
+    <parent link="${ns_namespace_}chassis"/>
+    <child link="${ns_namespace_}arm"/>
+
+    <dynamics damping="0.0" friction="0.0"/>
+    <limit effort="30" velocity="1.0" lower="-0.3" upper="0.3" />
+ </joint>
 
 </robot>
